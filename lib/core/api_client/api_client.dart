@@ -7,29 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 
-
 class ApiClient {
   final Client _client;
-   static String appBasesUrl = FlavorsType.appBaseUrl;
+  static String appBasesUrl = "https://api.seatgeek.com/";
 
   ApiClient(this._client);
 
- 
   dynamic get(String path, {Map<dynamic, dynamic>? params}) async {
     await Future.delayed(Duration(milliseconds: 500));
-   
+
     final response = await _client.get(
       getPath(path, params),
-      headers: {
-        'Content-Type': 'application/json',
-        
-      },
     );
 
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
-      
       throw UnauthorisedException();
     } else {
       throw Exception(response.reasonPhrase);
@@ -38,20 +31,18 @@ class ApiClient {
 
   dynamic post(String path, {Map<dynamic, dynamic>? params}) async {
     //print(token);
-   
+
     final response = await _client.post(
       getPath(path, null),
       body: jsonEncode(params),
       headers: {
         'Content-Type': 'application/json',
-        
       },
     );
-   
+
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
-
       throw UnauthorisedException();
     } else {
       throw Exception(response.reasonPhrase);
@@ -70,7 +61,6 @@ class ApiClient {
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else if (response.statusCode == 401) {
-   
       throw UnauthorisedException();
     } else {
       throw Exception(response.reasonPhrase);

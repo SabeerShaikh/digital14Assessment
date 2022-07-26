@@ -19,7 +19,7 @@ class DashboardSearchRepositoriesImpl extends DashboardRepository {
 // if (await networkInfo.isConnected) {
     try {
       final remoteData = await dataSource.getSearchData(serachKey);
-      // print(remoteData);
+       print(remoteData);
       return Right(remoteData);
     } on ServerException {
       return Left(ServerFailure());
