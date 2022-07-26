@@ -61,7 +61,11 @@ class _DashboardMainPageState extends State<DashboardMainPage> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(centerTitle: true, title: appBarTitle, actions: <Widget>[
+        appBar: AppBar(centerTitle: true,
+        backgroundColor: COLOR_PRIMARY,
+        shadowColor: COLOR_WHITE,
+         title: appBarTitle, 
+         actions: <Widget>[
           IconButton(
             icon: actionIcon,
             onPressed: () {
@@ -85,7 +89,6 @@ class _DashboardMainPageState extends State<DashboardMainPage> {
                         _debouncer.run(() {
                           setState(() {
                             if (string != "") {
-                              print("uu-${string}");
                               _dashboardSearchBloc
                                   .add(DashboardSearchIntiateEvent(string));
                             }
@@ -116,7 +119,6 @@ class _DashboardMainPageState extends State<DashboardMainPage> {
         listener: (context, state) {},
         child: BlocBuilder<DashboardSearchBloc, DashboardSearchState>(
             builder: (context, state) {
-          // print("Home screen states  : $state");
           if (state is DashboardSearchStateInitial) {
             _dashboardSearchBloc =
                 BlocProvider.of<DashboardSearchBloc>(context);
@@ -203,13 +205,20 @@ class ChildItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              Card(
                 margin: EdgeInsets.only(left: 12, bottom: 12),
+                elevation: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                clipBehavior: Clip.antiAlias,
                 child: CachedNetworkImage(
                   imageUrl: event.performers!.first.image!,
                   width: 80,
                   height: 80,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(
                     child: CircularProgressIndicator(
@@ -228,7 +237,10 @@ class ChildItem extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: Text(
                         event.title!.trim(),
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: COLOR_BLACK,
+                            fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
                         softWrap: false,
                         maxLines: 1,

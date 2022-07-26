@@ -30,8 +30,6 @@ class ApiClient {
   }
 
   dynamic post(String path, {Map<dynamic, dynamic>? params}) async {
-    //print(token);
-
     final response = await _client.post(
       getPath(path, null),
       body: jsonEncode(params),

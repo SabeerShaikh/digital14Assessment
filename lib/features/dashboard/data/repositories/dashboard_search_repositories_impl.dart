@@ -15,15 +15,17 @@ class DashboardSearchRepositoriesImpl extends DashboardRepository {
     required this.networkInfo,
   });
   @override
-  Future<Either<Failure, DashboardSearchEntity>> getSearchDetails(String serachKey) async{
-// if (await networkInfo.isConnected) {
-    try {
-      final remoteData = await dataSource.getSearchData(serachKey);
-       print(remoteData);
-      return Right(remoteData);
-    } on ServerException {
-      return Left(ServerFailure());
+  Future<Either<Failure, DashboardSearchEntity>> getSearchDetails(
+      String serachKey) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteData = await dataSource.getSearchData(serachKey);
+        return Right(remoteData);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(InternetFailure());
     }
   }
-
 }

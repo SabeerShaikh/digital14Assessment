@@ -25,13 +25,7 @@ class DashboardSearchDataSourceImpl implements DashboardSearchDataSource {
     final response = await client.get(
       ApiConstants.URL_GET_EVENTS + clinetId + "&q=" + searchKey,
     );
-
-    print(
-        "searchKey --- ${appBasesUrl + ApiConstants.URL_GET_EVENTS + clinetId + "&q=" + searchKey}");
-
     final dashboardSearchModel = DashboardSearchModel.fromJson(response);
-    //  print(dashboardSearchModel.events.toString());
-
     if (dashboardSearchModel.events != null) {
       if (dashboardSearchModel.events!.length > 0) {
         return dashboardSearchModel;
